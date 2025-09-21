@@ -1,16 +1,16 @@
-# Be sure to restart your server when you modify this file.
+# config/initializers/cors.rb
+Rails.application.config.middleware.insert_before 0, Rack::Cors do
+  allow do
+    # during dev: allow your emulators & web
+    origins 'http://localhost:3000', 'http://localhost:5173',  # if any web dev servers
+            'http://localhost:57900', 'http://127.0.0.1:57900', # Flutter web (ports vary)
+            '*' # (ok for dev; tighten later)
 
-# Avoid CORS issues when API is called from the frontend app.
-# Handle Cross-Origin Resource Sharing (CORS) in order to accept cross-origin Ajax requests.
+    resource '*',
+      headers: :any,
+      methods: %i[get post put patch delete options head],
+      expose: %w[Authorization],
+      credentials: false
+  end
+end
 
-# Read more: https://github.com/cyu/rack-cors
-
-# Rails.application.config.middleware.insert_before 0, Rack::Cors do
-#   allow do
-#     origins "example.com"
-#
-#     resource "*",
-#       headers: :any,
-#       methods: [:get, :post, :put, :patch, :delete, :options, :head]
-#   end
-# end

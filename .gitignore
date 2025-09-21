@@ -30,3 +30,57 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+# ---------------------
+# macOS system files
+# ---------------------
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r
+Icon
+
+# Thumbnails
+._*
+
+# Files that might appear in external disk drives
+.Spotlight-V100
+.Trashes
+
+# macOS system metadata
+.fseventsd
+.DocumentRevisions-V100
+.TemporaryItems
+.apdisk
+
+# ---------------------
+# Vim swap/backup files
+# ---------------------
+*.swp
+*.swo
+*.swn
+*.swm
+*.un~
+*.viminfo
+Session.vim
+tags
+
+# ---------------------
+# Common backup files
+# ---------------------
+*~
+*.bak
+*.tmp
+*.orig
+*.rej
+
+# ---------------------
+# Others
+# ---------------------
+# Ignore node_modules if you ever have JS tooling
+node_modules/
+
+# Logs
+*.log
+
+
