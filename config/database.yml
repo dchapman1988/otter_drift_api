@@ -1,0 +1,39 @@
+# config/database.yml
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS", 5) %>
+  timeout: 5000
+  host: <%= ENV.fetch("PGHOST", "localhost") %>
+  port: <%= ENV.fetch("PGPORT", 5432) %>
+  username: <%= ENV.fetch("PGUSER", "postgres") %>
+  password: <%= ENV.fetch("PGPASSWORD", nil) %>
+
+development:
+  <<: *default
+  database: <%= ENV.fetch("PGDATABASE", "#{Rails.application.class.module_parent_name.underscore}_development") %>
+
+test:
+  <<: *default
+  database: <%= ENV.fetch("PGDATABASE_TEST", "#{Rails.application.class.module_parent_name.underscore}_test") %>
+
+# Example multi-DB production (mirrors your SQLite layout). You can collapse this
+# to a single "production" DB if you prefer—these are optional.
+production:
+  primary:
+    <<: *default
+    database: <%= ENV.fetch("PGDATABASE_PRIMARY", "#{Rails.application.class.module_parent_name.underscore}_production") %>
+    url: <%= ENV["DATABASE_URL"] %> # if provided, this overrides host/port/user/pass/db
+  cache:
+    <<: *default
+    database: <%= ENV.fetch("PGDATABASE_CACHE", "#{Rails.application.class.module_parent_name.underscore}_production_cache") %>
+    migrations_paths: db/cache_migrate
+  queue:
+    <<: *default
+    database: <%= ENV.fetch("PGDATABASE_QUEUE", "#{Rails.application.class.module_parent_name.underscore}_production_queue") %>
+    migrations_paths: db/queue_migrate
+  cable:
+    <<: *default
+    database: <%= ENV.fetch("PGDATABASE_CABLE", "#{Rails.application.class.module_parent_name.underscore}_production_cable") %>
+    migrations_paths: db/cable_migrate
+
