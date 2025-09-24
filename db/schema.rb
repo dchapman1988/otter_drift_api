@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_24_153207) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_24_170058) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
   enable_extension "pgcrypto"
@@ -29,4 +29,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_24_153207) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "high_scores", force: :cascade do |t|
+    t.bigint "game_session_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_session_id"], name: "index_high_scores_on_game_session_id"
+  end
+
+  add_foreign_key "high_scores", "game_sessions"
 end

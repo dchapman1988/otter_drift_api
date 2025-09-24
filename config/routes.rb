@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :high_scores
   resources :game_sessions
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
