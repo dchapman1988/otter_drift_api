@@ -5,9 +5,8 @@ RSpec.describe GameSession, type: :model do
     expect(build(:game_session)).to be_valid
   end
 
-  it "has a player name by default" do
+  it "generates a UUID for session_id by default" do
     gs = create(:game_session)
-    binding.pry
     expect(gs.session_id).to be_present
     expect(gs.session_id).to match(/\A[0-9a-f-]{36}\z/i)
   end
