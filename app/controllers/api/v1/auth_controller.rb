@@ -26,8 +26,8 @@ module Api
         # Simple validation - replace with your preferred method
         # You could use environment variables, a config file, or database
         valid_clients = {
-          'game_client_1' => ENV['GAME_CLIENT_1_API_KEY'] || 'your_secret_key_here',
-          'mobile_app' => ENV['MOBILE_APP_API_KEY'] || 'another_secret_key'
+          'game_client_1' => Rails.application.credentials.api_keys&.game_client_1,
+          'mobile_app' => Rails.application.credentials.api_keys&.mobile_app
         }
         
         valid_clients[client_id] == api_key
