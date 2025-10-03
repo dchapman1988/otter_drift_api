@@ -23,14 +23,16 @@ module Api
       private
 
       def valid_credentials?(client_id, api_key)
-        # Simple validation - replace with your preferred method
-        # You could use environment variables, a config file, or database
-        valid_clients = {
-          'game_client_1' => Rails.application.credentials.api_keys&.game_client_1,
-          'mobile_app' => Rails.application.credentials.api_keys&.mobile_app
-        }
-        
-        valid_clients[client_id] == api_key
+        # Get the expected API key from Rails credentials
+        expected_api_key = Rails.application.credentials.dig(client_id.to_sym)
+
+        if expected_api_key.nil?
+          Rails.logger.error "Unknown client_id: #{client_id}"
+          return false
+        end
+
+        # Use secure comparison to prevent timing attacks
+        ActiveSupport::SecurityUtils.secure_compare(expected_api_key, api_key.to_s)
       end
     end
   end

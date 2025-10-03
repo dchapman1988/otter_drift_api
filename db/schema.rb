@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_09_24_205309) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_03_171712) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -33,6 +33,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_24_205309) do
     t.bigint "game_session_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "score"
     t.index ["game_session_id"], name: "index_high_scores_on_game_session_id"
   end
 

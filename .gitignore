@@ -35,3 +35,6 @@
 *.swp
 *.swo
 config/master.key
+
+/config/credentials/*.key
+
