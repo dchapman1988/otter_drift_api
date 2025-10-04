@@ -6,8 +6,6 @@ class GameSession < ApplicationRecord
   private
 
   def record_high_score
-    return if high_scores.find_by(score: final_score)
-
-    high_scores.create(score: final_score)
+    high_scores.find_or_create_by(score: final_score)
   end
 end
