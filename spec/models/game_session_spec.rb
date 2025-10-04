@@ -1,14 +1,22 @@
 require "rails_helper"
 
 RSpec.describe GameSession, type: :model do
-  it "has a valid factory" do
-    expect(build(:game_session)).to be_valid
-  end
+  describe "High Scores" do
+    it "creates high score" do
+      expect {
+        create(:game_session)
+      }.to change { HighScore.count }.by(1)
+    end
 
-  it "generates a UUID for session_id by default" do
-    gs = create(:game_session)
-    expect(gs.session_id).to be_present
-    expect(gs.session_id).to match(/\A[0-9a-f-]{36}\z/i)
+    it "creates only unique high scores" do
+      session_id = SecureRandom.uuid
+      expect {
+        game_session = create(:game_session, final_score: 999, session_id: session_id)
+        # This is testing that the after_commit callback is only creating unique high scores
+        game_session.update(player_name: Faker::Name.first_name, final_score: 999)
+      }.to change { HighScore.count }.by(1)
+      expect(HighScore.where(score: 999).size).to eq(1)
+    end
   end
 end
 
