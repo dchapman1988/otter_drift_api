@@ -6,6 +6,6 @@ class GameSession < ApplicationRecord
   private
 
   def record_high_score
-    high_scores.find_or_create_by(score: final_score)
+    CreateHighScoreJob.perform_later(id)
   end
 end
