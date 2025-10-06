@@ -8,21 +8,36 @@ default: &default
   port: <%= ENV.fetch("PGPORT", 5432) %>
   username: <%= ENV.fetch("PGUSER", "postgres") %>
   password: <%= ENV.fetch("PGPASSWORD", nil) %>
+  <% if RUBY_PLATFORM =~ /darwin/ %>
+  gssencmode: disable
+  <% end %>
 
 development:
   primary:
     <<: *default
+    <% if RUBY_PLATFORM =~ /darwin/ %>
+    gssencmode: disable
+    <% end %>
     database: <%= ENV.fetch("PGDATABASE", "#{Rails.application.class.module_parent_name.underscore}_development") %>
   cache:
     <<: *default
+    <% if RUBY_PLATFORM =~ /darwin/ %>
+    gssencmode: disable
+    <% end %>
     database: <%= ENV.fetch("PGDATABASE_CACHE", "#{Rails.application.class.module_parent_name.underscore}_development_cache") %>
     migrations_paths: db/cache_migrate
   queue:
     <<: *default
+    <% if RUBY_PLATFORM =~ /darwin/ %>
+    gssencmode: disable
+    <% end %>
     database: <%= ENV.fetch("PGDATABASE_QUEUE", "#{Rails.application.class.module_parent_name.underscore}_development_queue") %>
     migrations_paths: db/queue_migrate
   cable:
     <<: *default
+    <% if RUBY_PLATFORM =~ /darwin/ %>
+    gssencmode: disable
+    <% end %>
     database: <%= ENV.fetch("PGDATABASE_CABLE", "#{Rails.application.class.module_parent_name.underscore}_development_cable") %>
     migrations_paths: db/cable_migrate
 
