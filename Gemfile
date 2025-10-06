@@ -47,6 +47,7 @@ group :development, :test do
   gem "rspec-rails", "~> 8.0.2"
   gem "factory_bot_rails"
   gem "faker"
+  gem "shoulda-matchers"
 end
 
 gem "pg", "~> 1.6"
@@ -56,3 +57,6 @@ gem "rspec", "~> 3.13"
 gem "pry", "~> 0.15.2"
 
 gem "jwt", "~> 3.1"
+
+gem "devise"
+gem "devise-jwt"
