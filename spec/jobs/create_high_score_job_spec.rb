@@ -14,4 +14,11 @@ RSpec.describe CreateHighScoreJob, type: :job do
     high_score = HighScore.last
     expect(high_score.score).to eq(game_session.final_score)
   end
+
+  it "creates unique HighScores" do
+    described_class.perform_now(game_session.id)
+    expect {
+      described_class.perform_now(game_session.id)
+    }.to change(HighScore, :count).by(0)
+  end
 end
