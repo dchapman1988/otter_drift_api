@@ -46,7 +46,7 @@ Devise.setup do |config|
   # session. If you need permissions, you should implement that in a before filter.
   # You can also supply a hash where the value is a boolean determining whether
   # or not authentication should be aborted when the value is not present.
-  # config.authentication_keys = [:email]
+  config.authentication_keys = [:email]
 
   # Configure parameters from the request object used for authentication. Each entry
   # given should be a request method and it will automatically be passed to the
@@ -58,12 +58,12 @@ Devise.setup do |config|
   # Configure which authentication keys should be case-insensitive.
   # These keys will be downcased upon creating or modifying a user and when used
   # to authenticate or find a user. Default is :email.
-  config.case_insensitive_keys = [:email]
+  config.case_insensitive_keys = [:email, :username]
 
   # Configure which authentication keys should have whitespace stripped.
   # These keys will have whitespace before and after removed upon creating or
   # modifying a user and when used to authenticate or find a user. Default is :email.
-  config.strip_whitespace_keys = [:email]
+  config.strip_whitespace_keys = [:email, :username]
 
   # Tell if authentication through request.params is enabled. True by default.
   # It can be set to an array that will enable params authentication only for the
@@ -315,14 +315,16 @@ Devise.setup do |config|
   config.jwt do |jwt|
     jwt.secret = Rails.application.credentials.devise_jwt_secret_key!
     jwt.dispatch_requests = [
-      ['POST', %r{^/api/v1/players/sign_in$}]
+      ['POST', %r{^/players/sign_in$}]  # Changed from /api/v1/players/sign_in
     ]
     jwt.revocation_requests = [
-      ['DELETE', %r{^/api/v1/players/sign_out$}]
+      ['DELETE', %r{^/players/sign_out$}]  # Changed from /api/v1/players/sign_out
     ]
     jwt.expiration_time = 30.days.to_i
   end
 
-  config.navigational_formats = []
+  # For API-only apps, we still need to handle sign-in/sign-up requests
+  # Empty array causes "You need to sign in" errors
+  # config.navigational_formats = []
 
 end

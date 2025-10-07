@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_06_160410) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_07_193925) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -65,6 +65,14 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_06_160410) do
     t.datetime "updated_at", null: false
     t.bigint "score"
     t.index ["game_session_id"], name: "index_high_scores_on_game_session_id"
+  end
+
+  create_table "jwt_denylists", force: :cascade do |t|
+    t.string "jti", null: false
+    t.datetime "exp", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["jti"], name: "index_jwt_denylists_on_jti"
   end
 
   create_table "players", force: :cascade do |t|
