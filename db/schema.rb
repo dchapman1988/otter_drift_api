@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_07_193925) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_08_173558) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -75,6 +75,20 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_07_193925) do
     t.index ["jti"], name: "index_jwt_denylists_on_jti"
   end
 
+  create_table "player_profiles", force: :cascade do |t|
+    t.text "bio"
+    t.text "favorite_otter_fact"
+    t.string "title"
+    t.string "profile_banner_url"
+    t.string "location"
+    t.bigint "player_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["location"], name: "index_player_profiles_on_location"
+    t.index ["player_id"], name: "index_player_profiles_on_player_id"
+    t.index ["title"], name: "index_player_profiles_on_title"
+  end
+
   create_table "players", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -104,4 +118,5 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_07_193925) do
   add_foreign_key "earned_achievements", "players"
   add_foreign_key "game_sessions", "players"
   add_foreign_key "high_scores", "game_sessions"
+  add_foreign_key "player_profiles", "players"
 end

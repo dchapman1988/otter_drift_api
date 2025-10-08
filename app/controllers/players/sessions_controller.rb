@@ -5,6 +5,11 @@ module Players
     skip_around_action :set_current_attributes, raise: false
     skip_before_action :verify_signed_out_user, only: [:destroy]
     wrap_parameters false
+    
+    # Skip flash for API-only controllers
+    def flash
+      {}
+    end
 
     private
 

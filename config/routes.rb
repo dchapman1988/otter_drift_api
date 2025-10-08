@@ -7,6 +7,11 @@ Rails.application.routes.draw do
       registrations: 'players/registrations'
     }
 
+  # Player profile management
+  namespace :players do
+    resource :profile, only: [:update]
+  end
+
   namespace :api do
     namespace :v1 do
       # Client authentication
