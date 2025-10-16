@@ -5,7 +5,7 @@ FactoryBot.define do
     icon_url { Faker::Internet.url }
     points { rand(10..100) }
     hidden { false }
-    
+
     factory :lily_collector, class: 'Achievement::LilyCollector' do
       type { "Achievement::LilyCollector" }
       name { "Lily Collector!" }
@@ -14,7 +14,7 @@ FactoryBot.define do
       points { 10 }
       hidden { false }
     end
-    
+
     factory :heart_hoarder, class: 'Achievement::HeartHoarder' do
       type { "Achievement::HeartHoarder" }
       name { "Heart Hoarder" }

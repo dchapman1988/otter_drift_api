@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe HighScore, type: :model do
-
   it 'delegates player name to the game session' do
     hs = create(:high_score)
     hs.reload

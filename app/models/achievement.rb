@@ -13,5 +13,4 @@ class Achievement < ApplicationRecord
   def requirements_text
     raise NotImplementedError, "Subclasses must implement requirements_text"
   end
-
 end

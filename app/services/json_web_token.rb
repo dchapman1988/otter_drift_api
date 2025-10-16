@@ -13,4 +13,3 @@ class JsonWebToken
     HashWithIndifferentAccess.new decoded
   end
 end
-

@@ -10,7 +10,7 @@ FactoryBot.define do
     max_speed_reached { nil }
     obstacles_avoided { nil }
     lilies_collected { nil }
-    
+
     trait :completed do
       ended_at { Time.current }
       final_score { rand(100..10000) }
@@ -19,15 +19,15 @@ FactoryBot.define do
       obstacles_avoided { rand(0..50) }
       lilies_collected { rand(0..100) }
     end
-    
+
     trait :with_player do
       association :player
     end
-    
+
     trait :guest do
       player { nil }
     end
-    
+
     trait :high_score do
       completed
       final_score { rand(5000..10000) }

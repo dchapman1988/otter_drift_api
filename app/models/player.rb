@@ -13,13 +13,13 @@ class Player < ApplicationRecord
             length: { minimum: 3, maximum: 20 }
   validates :display_name, length: { maximum: 30 }, allow_blank: true
   validates :avatar_url, length: { maximum: 500 }, allow_blank: true
-  
+
   # URL format validation for avatar_url (optional but recommended)
-  validates :avatar_url, format: { 
-    with: URI::DEFAULT_PARSER.make_regexp(%w[http https]), 
-    message: "must be a valid URL" 
+  validates :avatar_url, format: {
+    with: URI::DEFAULT_PARSER.make_regexp(%w[http https]),
+    message: "must be a valid URL"
   }, if: -> { avatar_url.present? }
-  
+
   # Email uniqueness is already handled by Devise's :validatable module
   # But we can add case-insensitive uniqueness explicitly
   validates :email, uniqueness: { case_sensitive: false }

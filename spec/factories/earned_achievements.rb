@@ -6,4 +6,3 @@ FactoryBot.define do
     earned_at { Time.current }
   end
 end
-

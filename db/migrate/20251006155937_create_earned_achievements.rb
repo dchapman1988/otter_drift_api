@@ -10,7 +10,7 @@ class CreateEarnedAchievements < ActiveRecord::Migration[8.0]
     end
 
     # Prevent earning the same achievement twice
-    add_index :earned_achievements, [:player_id, :achievement_id], unique: true
+    add_index :earned_achievements, [ :player_id, :achievement_id ], unique: true
     add_index :earned_achievements, :earned_at
   end
 end

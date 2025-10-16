@@ -1,14 +1,18 @@
 module Players
   class ProfilesController < ApplicationController
     include JwtAuthentication
-    
-    before_action :ensure_profile_exists, only: [:update]
+
+    before_action :ensure_profile_exists, only: [ :update ]
+
+    def show
+      @player_prfile = current_player.player_profile
+    end
 
     def update
       # Check if player is authenticated
       unless current_player
         render json: {
-          errors: ['You must be logged in to update your profile']
+          errors: [ "You must be logged in to update your profile" ]
         }, status: :unauthorized
         return
       end
@@ -61,12 +65,12 @@ module Players
               location: profile.location
             }
           },
-          message: 'Profile updated successfully.'
+          message: "Profile updated successfully."
         }, status: :ok
       end
     rescue ActiveRecord::RecordInvalid => e
       render json: {
-        errors: [e.message],
+        errors: [ e.message ],
         details: {}
       }, status: :unprocessable_entity
     end
@@ -76,7 +80,7 @@ module Players
   def ensure_profile_exists
     # Return early if not authenticated
     return unless current_player
-    
+
     # Create profile if it doesn't exist
     current_player.create_player_profile! unless current_player.player_profile
   end

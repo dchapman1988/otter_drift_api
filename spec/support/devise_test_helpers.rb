@@ -4,8 +4,8 @@ module DeviseTestHelpers
     # since there's no session middleware
     # We'll use a different approach - set the player in the controller instance
     allow_any_instance_of(ApplicationController).to receive(:warden).and_return(
-      double('warden', 
-        authenticated?: true, 
+      double('warden',
+        authenticated?: true,
         user: player,
         set_user: true,
         logout: true
@@ -15,8 +15,8 @@ module DeviseTestHelpers
 
   def sign_out(player = nil)
     allow_any_instance_of(ApplicationController).to receive(:warden).and_return(
-      double('warden', 
-        authenticated?: false, 
+      double('warden',
+        authenticated?: false,
         user: nil,
         set_user: true,
         logout: true

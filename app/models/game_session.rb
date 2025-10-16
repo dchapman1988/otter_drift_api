@@ -8,9 +8,9 @@ class GameSession < ApplicationRecord
   validates :lilies_collected, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
   validates :obstacles_avoided, numericality: { greater_than_or_equal_to: 0 }, allow_nil: true
 
-  after_commit :record_high_score, on: [:create, :update]
-  after_commit :update_player_stats, on: [:create, :update], if: :player_present_and_completed?
-  after_commit :check_achievements, on: [:create, :update], if: :player_present_and_completed?
+  after_commit :record_high_score, on: [ :create, :update ]
+  after_commit :update_player_stats, on: [ :create, :update ], if: :player_present_and_completed?
+  after_commit :check_achievements, on: [ :create, :update ], if: :player_present_and_completed?
 
   scope :completed, -> { where.not(ended_at: nil, final_score: nil) }
   scope :for_player, ->(player) { where(player: player) }

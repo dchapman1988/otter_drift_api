@@ -23,7 +23,7 @@ RSpec.describe "Players::Profiles", type: :request do
 
           expect(response).to have_http_status(:ok)
           json = JSON.parse(response.body)
-          
+
           expect(json['player']['display_name']).to eq('New Display Name')
           expect(json['player']['username']).to eq('newusername')
           expect(json['message']).to eq('Profile updated successfully.')
@@ -47,7 +47,7 @@ RSpec.describe "Players::Profiles", type: :request do
 
           expect(response).to have_http_status(:ok)
           json = JSON.parse(response.body)
-          
+
           expect(json['player']['profile']['bio']).to eq('I love otters!')
           expect(json['player']['profile']['favorite_otter_fact']).to eq('Otters hold hands when they sleep')
           expect(json['player']['profile']['title']).to eq('Otter Expert')
@@ -73,7 +73,7 @@ RSpec.describe "Players::Profiles", type: :request do
 
           expect(response).to have_http_status(:ok)
           json = JSON.parse(response.body)
-          
+
           expect(json['player']['display_name']).to eq('Otter Master')
           expect(json['player']['avatar_url']).to eq('https://example.com/avatar.png')
           expect(json['player']['profile']['bio']).to eq('Professional otter enthusiast')
@@ -93,7 +93,7 @@ RSpec.describe "Players::Profiles", type: :request do
 
           expect(response).to have_http_status(:unprocessable_entity)
           json = JSON.parse(response.body)
-          
+
           expect(json['errors']).to be_present
           expect(json['errors'].first).to include('too short')
         end
@@ -101,7 +101,7 @@ RSpec.describe "Players::Profiles", type: :request do
 
       context "with duplicate username" do
         let!(:other_player) { create(:player, username: 'existinguser') }
-        
+
         it "returns validation errors" do
           patch '/players/profile',
                 params: {
@@ -113,7 +113,7 @@ RSpec.describe "Players::Profiles", type: :request do
 
           expect(response).to have_http_status(:unprocessable_entity)
           json = JSON.parse(response.body)
-          
+
           expect(json['errors']).to be_present
           expect(json['errors'].first).to include('taken')
         end
@@ -121,7 +121,7 @@ RSpec.describe "Players::Profiles", type: :request do
 
       context "with duplicate email" do
         let!(:other_player) { create(:player, email: 'existing@example.com') }
-        
+
         it "returns validation errors" do
           patch '/players/profile',
                 params: {
@@ -133,7 +133,7 @@ RSpec.describe "Players::Profiles", type: :request do
 
           expect(response).to have_http_status(:unprocessable_entity)
           json = JSON.parse(response.body)
-          
+
           expect(json['errors']).to be_present
           expect(json['errors'].first).to include('taken')
         end
@@ -151,7 +151,7 @@ RSpec.describe "Players::Profiles", type: :request do
 
           expect(response).to have_http_status(:unprocessable_entity)
           json = JSON.parse(response.body)
-          
+
           expect(json['errors']).to be_present
           expect(json['errors'].first).to include('valid URL')
         end
@@ -171,7 +171,7 @@ RSpec.describe "Players::Profiles", type: :request do
 
           expect(response).to have_http_status(:unprocessable_entity)
           json = JSON.parse(response.body)
-          
+
           expect(json['errors']).to be_present
           expect(json['errors'].first).to include('too long')
         end
