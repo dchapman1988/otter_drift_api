@@ -1,0 +1,229 @@
+---
+openapi: 3.0.1
+info:
+  title: Otter Drift API V1
+  version: v1
+  description: API documentation for Otter Drift game backend
+paths:
+  "/api/v1/players/profile":
+    get:
+      summary: Get Player Profile
+      tags:
+      - Player Profile
+      description: Retrieves the authenticated player's profile information
+      security:
+      - bearer_auth: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  player:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      email:
+                        type: string
+                      username:
+                        type: string
+                      display_name:
+                        type: string
+                        nullable: true
+                      avatar_url:
+                        type: string
+                        nullable: true
+                      profile:
+                        type: object
+                        properties:
+                          bio:
+                            type: string
+                            nullable: true
+                          favorite_otter_fact:
+                            type: string
+                            nullable: true
+                          title:
+                            type: string
+                            nullable: true
+                          profile_banner_url:
+                            type: string
+                            nullable: true
+                          location:
+                            type: string
+                            nullable: true
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+    patch:
+      summary: Update Player Profile
+      tags:
+      - Player Profile
+      description: Updates the authenticated player's profile and player information
+      security:
+      - bearer_auth: []
+      parameters: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  player:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      email:
+                        type: string
+                      username:
+                        type: string
+                      display_name:
+                        type: string
+                      avatar_url:
+                        type: string
+                        nullable: true
+                      profile:
+                        type: object
+                        properties:
+                          bio:
+                            type: string
+                            nullable: true
+                          favorite_otter_fact:
+                            type: string
+                            nullable: true
+                          title:
+                            type: string
+                            nullable: true
+                          profile_banner_url:
+                            type: string
+                            nullable: true
+                          location:
+                            type: string
+                            nullable: true
+                  message:
+                    type: string
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+        '422':
+          description: unprocessable entity
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                  details:
+                    type: object
+                    additionalProperties: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                player:
+                  type: object
+                  properties:
+                    display_name:
+                      type: string
+                      description: Player display name
+                    username:
+                      type: string
+                      description: Player username (3-50 characters)
+                    email:
+                      type: string
+                      description: Player email address
+                    avatar_url:
+                      type: string
+                      description: URL to player avatar image
+                    profile:
+                      type: object
+                      properties:
+                        bio:
+                          type: string
+                          description: Player bio (max 500 characters)
+                        favorite_otter_fact:
+                          type: string
+                          description: Player's favorite otter fact (max 500 characters)
+                        title:
+                          type: string
+                          description: Player title (max 100 characters)
+                        profile_banner_url:
+                          type: string
+                          description: URL to profile banner image
+                        location:
+                          type: string
+                          description: Player location (max 100 characters)
+  "/api/v1/players/stats":
+    get:
+      summary: Get Player Stats
+      tags:
+      - Player Stats
+      description: Retrieves the authenticated player's game statistics
+      security:
+      - bearer_auth: []
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  player_stats:
+                    type: object
+                    properties:
+                      total_score:
+                        type: integer
+                        description: Total cumulative score across all games
+                      games_played:
+                        type: integer
+                        description: Total number of games played
+                      personal_best:
+                        type: integer
+                        description: Highest score in a single game
+        '401':
+          description: unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+servers:
+- url: http://localhost:3000
+  description: Development server
+components:
+  securitySchemes:
+    bearer_auth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

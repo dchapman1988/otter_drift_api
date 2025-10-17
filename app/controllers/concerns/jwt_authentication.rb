@@ -24,10 +24,11 @@ module JwtAuthentication
     return true if warden&.authenticated?(:player)
 
     # Try to authenticate via JWT (devise-jwt will handle this)
-    # The jwt strategy is automatically registered by devise-jwt
+    # Explicitly use the :jwt strategy registered by devise-jwt
     if request.headers["Authorization"].present?
       Rails.logger.info "🔐 JWT Auth: Authorization header present, attempting authentication..."
-      result = warden&.authenticate(scope: :player, store: false)
+      # Warden needs to be told which strategy to use in API mode
+      result = warden&.authenticate(:jwt, scope: :player, store: false)
       Rails.logger.info "🔐 JWT Auth: Result = #{result.inspect}, Authenticated? #{warden&.authenticated?(:player)}"
       result
     else

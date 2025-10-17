@@ -1,8 +1,8 @@
 module Players
   class SessionsController < Devise::SessionsController
     respond_to :json
-    skip_before_action :authenticate_request, raise: false
-    skip_around_action :set_current_attributes, raise: false
+    skip_before_action :authenticate_request, only: [ :create, :new ], raise: false
+    skip_around_action :set_current_attributes, only: [ :create, :new ], raise: false
     skip_before_action :verify_signed_out_user, only: [ :destroy ]
     wrap_parameters false
 
