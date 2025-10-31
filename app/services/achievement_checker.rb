@@ -11,8 +11,13 @@ class AchievementChecker
   def check_and_award
     newly_earned = []
 
-    unearned_achievements.find_each do |achievement|
-      if achievement.check_progress(@game_session)
+    # Iterate over unearned achievement template classes (LSP pattern)
+    unearned_templates.each do |template_class|
+      if template_class.check_progress(@game_session)
+        # Find or create the Achievement record from the template
+        achievement = Achievement.from_template(template_class)
+
+        # Award it to the player
         earned = EarnedAchievement.create!(
           player: @player,
           achievement: achievement,
@@ -29,9 +34,8 @@ class AchievementChecker
 
   private
 
-  def unearned_achievements
-    Achievement.where.not(
-      id: @player.earned_achievements.select(:achievement_id)
-    )
+  def unearned_templates
+    # Get template classes that the player hasn't earned yet
+    Achievement.unearned_templates_for(@player)
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_10_08_173558) do
+ActiveRecord::Schema[8.0].define(version: 2025_10_31_194803) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -23,6 +23,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_10_08_173558) do
     t.boolean "hidden", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "achievement_type"
+    t.index ["achievement_type"], name: "index_achievements_on_achievement_type", unique: true
   end
 
   create_table "earned_achievements", force: :cascade do |t|
