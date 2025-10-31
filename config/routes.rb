@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  mount Rswag::Ui::Engine => '/api-docs'
-  mount Rswag::Api::Engine => '/api-docs'
+  mount Rswag::Ui::Engine => "/api-docs"
+  mount Rswag::Api::Engine => "/api-docs"
   # Player authentication - custom controllers
   devise_for :players,
     path: "players",
@@ -18,7 +18,7 @@ Rails.application.routes.draw do
       # Player profile management and stats
       namespace :players do
         resource :profile, only: [ :update, :show ]
-        resource :stats, only: [:show]
+        resource :stats, only: [ :show ]
       end
 
       # Game endpoints

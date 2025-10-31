@@ -12,7 +12,7 @@ RSpec.describe 'api/v1/players/profiles', type: :request do
     get('Get Player Profile') do
       tags 'Player Profile'
       description 'Retrieves the authenticated player\'s profile information'
-      security [bearer_auth: []]
+      security [ bearer_auth: [] ]
       produces 'application/json'
 
       response(200, 'successful') do
@@ -64,7 +64,7 @@ RSpec.describe 'api/v1/players/profiles', type: :request do
     patch('Update Player Profile') do
       tags 'Player Profile'
       description 'Updates the authenticated player\'s profile and player information'
-      security [bearer_auth: []]
+      security [ bearer_auth: [] ]
       consumes 'application/json'
       produces 'application/json'
 

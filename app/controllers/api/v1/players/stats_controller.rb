@@ -5,7 +5,7 @@ module Api
         include JwtAuthentication
 
         before_action :authenticate_player!
-        before_action :load_player, only: [:show]
+        before_action :load_player, only: [ :show ]
 
         def show
           response = {
@@ -24,7 +24,7 @@ module Api
         def authenticate_player!
           unless current_player
             render json: {
-              errors: ["Unauthorized"]
+              errors: [ "Unauthorized" ]
             }, status: :unauthorized
           end
         end

@@ -27,7 +27,7 @@ module Api
         def authenticate_player!
           unless current_player
             render json: {
-              errors: ["You must be logged in to update your profile"]
+              errors: [ "You must be logged in to update your profile" ]
             }, status: :unauthorized
           end
         end

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Api::V1::StatsController", type: :request do
   let(:player) {
-    create(:player) 
+    create(:player)
   }
 
   describe "GET /player/stats" do

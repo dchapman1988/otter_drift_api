@@ -12,7 +12,7 @@ RSpec.describe 'api/v1/players/stats', type: :request do
     get('Get Player Stats') do
       tags 'Player Stats'
       description 'Retrieves the authenticated player\'s game statistics'
-      security [bearer_auth: []]
+      security [ bearer_auth: [] ]
       produces 'application/json'
 
       response(200, 'successful') do
