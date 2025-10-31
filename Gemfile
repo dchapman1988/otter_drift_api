@@ -3,7 +3,7 @@ source "https://rubygems.org"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.0.3"
 # Use sqlite3 as the database for Active Record
-gem "sqlite3", ">= 2.1"
+gem "pg", "~> 1.6"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
@@ -45,21 +45,19 @@ group :development, :test do
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
   gem "rspec-rails", "~> 8.0.2"
+  gem "rspec", "~> 3.13"
+  gem "pry", "~> 0.15.2"
   gem "factory_bot_rails"
   gem "faker"
   gem "shoulda-matchers"
   gem "rswag-specs"
   gem "rswag-api"
   gem "rswag-ui"
+  gem "mutex_m"
 end
 
-gem "pg", "~> 1.6"
 
-gem "rspec", "~> 3.13"
-
-gem "pry", "~> 0.15.2"
 
 gem "jwt", "~> 3.1"
-
 gem "devise"
 gem "devise-jwt"
