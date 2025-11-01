@@ -54,6 +54,7 @@ group :development, :test do
   gem "rswag-api"
   gem "rswag-ui"
   gem "mutex_m"
+  gem "simplecov"
 end
 
 
