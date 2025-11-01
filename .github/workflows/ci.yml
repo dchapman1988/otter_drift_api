@@ -74,4 +74,6 @@ jobs:
           PGUSER: postgres
           PGPASSWORD: postgres
           # REDIS_URL: redis://localhost:6379/0
-        run: bin/rails db:test:prepare test
+        run: |
+          bin/rails db:test:prepare
+          bundle exec rspec
