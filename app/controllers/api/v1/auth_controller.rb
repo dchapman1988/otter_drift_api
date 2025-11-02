@@ -23,6 +23,9 @@ module Api
       private
 
       def valid_credentials?(client_id, api_key)
+        # Validate inputs first
+        return false if client_id.blank? || api_key.blank?
+
         # Get the expected API key from Rails credentials
         expected_api_key = Rails.application.credentials.dig(client_id.to_sym)
 
