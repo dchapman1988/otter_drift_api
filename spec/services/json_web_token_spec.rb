@@ -230,7 +230,7 @@ RSpec.describe JsonWebToken do
       original_payload = {
         user_id: 456,
         email: 'roundtrip@example.com',
-        roles: ['admin', 'user'],
+        roles: [ 'admin', 'user' ],
         metadata: { created_at: '2025-01-01' }
       }
 
@@ -239,7 +239,7 @@ RSpec.describe JsonWebToken do
 
       expect(decoded[:user_id]).to eq(456)
       expect(decoded[:email]).to eq('roundtrip@example.com')
-      expect(decoded[:roles]).to eq(['admin', 'user'])
+      expect(decoded[:roles]).to eq([ 'admin', 'user' ])
       expect(decoded[:metadata]).to eq({ 'created_at' => '2025-01-01' })
     end
 
@@ -248,7 +248,7 @@ RSpec.describe JsonWebToken do
         integer: 42,
         string: 'test',
         boolean: true,
-        array: [1, 2, 3],
+        array: [ 1, 2, 3 ],
         hash: { key: 'value' }
       }
 
@@ -258,7 +258,7 @@ RSpec.describe JsonWebToken do
       expect(decoded[:integer]).to eq(42)
       expect(decoded[:string]).to eq('test')
       expect(decoded[:boolean]).to eq(true)
-      expect(decoded[:array]).to eq([1, 2, 3])
+      expect(decoded[:array]).to eq([ 1, 2, 3 ])
       expect(decoded[:hash]).to eq({ 'key' => 'value' })
     end
   end
