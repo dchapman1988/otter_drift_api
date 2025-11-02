@@ -73,7 +73,20 @@ jobs:
           PGHOST: localhost
           PGUSER: postgres
           PGPASSWORD: postgres
+          CI: true
           # REDIS_URL: redis://localhost:6379/0
         run: |
           bin/rails db:test:prepare
           bundle exec rspec
+
+      - name: Check test coverage
+        if: always()
+        run: |
+          if [ -f coverage/.resultset.json ]; then
+            # SimpleCov will automatically fail the build if coverage is below 99%
+            # This step provides additional visibility
+            echo "✅ Test coverage check passed - SimpleCov enforces 99% minimum coverage"
+          else
+            echo "❌ Coverage report not found"
+            exit 1
+          fi

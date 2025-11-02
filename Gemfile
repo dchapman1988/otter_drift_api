@@ -55,6 +55,7 @@ group :development, :test do
   gem "rswag-ui"
   gem "mutex_m"
   gem "simplecov"
+  gem "database_cleaner-active_record"
 end
 
 

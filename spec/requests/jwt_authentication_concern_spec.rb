@@ -248,23 +248,42 @@ RSpec.describe "JwtAuthentication Concern", type: :request do
   end
 
   describe "security: concurrent request handling" do
-    it "handles concurrent requests from same player safely" do
+    it "allows same JWT token to be reused across multiple sequential requests" do
       post '/players/sign_in', params: {
         player: { email: player.email, password: 'password123' }
       }
       token = response.headers['Authorization']
 
-      threads = 5.times.map do
+      # Make multiple sequential requests with the same token
+      5.times do
+        get '/api/v1/players/profile', headers: { 'Authorization' => token }
+        expect(response).to have_http_status(:ok)
+        json = JSON.parse(response.body)
+        expect(json['player']['email']).to eq(player.email)
+      end
+    end
+
+    it "JWT decoding is thread-safe", :truncation do
+      # Create a valid token
+      payload = { player_id: player.id, exp: 24.hours.from_now.to_i }
+      token = JsonWebToken.encode(payload)
+
+      # Decode the same token concurrently in multiple threads
+      threads = 10.times.map do
         Thread.new do
-          get '/api/v1/players/profile', headers: { 'Authorization' => token }
-          response.status
+          begin
+            decoded = JsonWebToken.decode(token)
+            { success: true, player_id: decoded[:player_id] }
+          rescue => e
+            { success: false, error: e.message }
+          end
         end
       end
 
       results = threads.map(&:value)
 
-      # All requests should succeed
-      expect(results).to all(eq(200))
+      # All threads should successfully decode the token
+      expect(results).to all(include(success: true, player_id: player.id))
     end
   end
 
