@@ -57,7 +57,7 @@ RSpec.describe "Players::SessionsController", type: :request do
 
         expect(response).to have_http_status(:unprocessable_content)
         json = JSON.parse(response.body)
-        expect(json['errors']).to eq(['Invalid email or password'])
+        expect(json['errors']).to eq([ 'Invalid email or password' ])
       end
 
       it "returns error with invalid email" do
@@ -70,7 +70,7 @@ RSpec.describe "Players::SessionsController", type: :request do
 
         expect(response).to have_http_status(:unprocessable_content)
         json = JSON.parse(response.body)
-        expect(json['errors']).to eq(['Invalid email or password'])
+        expect(json['errors']).to eq([ 'Invalid email or password' ])
       end
 
       it "returns error with missing email" do
@@ -82,7 +82,7 @@ RSpec.describe "Players::SessionsController", type: :request do
 
         expect(response).to have_http_status(:unprocessable_content)
         json = JSON.parse(response.body)
-        expect(json['errors']).to eq(['Invalid email or password'])
+        expect(json['errors']).to eq([ 'Invalid email or password' ])
       end
 
       it "returns error with missing password" do
@@ -94,7 +94,7 @@ RSpec.describe "Players::SessionsController", type: :request do
 
         expect(response).to have_http_status(:unprocessable_content)
         json = JSON.parse(response.body)
-        expect(json['errors']).to eq(['Invalid email or password'])
+        expect(json['errors']).to eq([ 'Invalid email or password' ])
       end
     end
 
@@ -196,7 +196,7 @@ RSpec.describe "Players::SessionsController", type: :request do
 
         expect(response).to have_http_status(:unauthorized)
         json = JSON.parse(response.body)
-        expect(json['errors']).to eq(['No active session or invalid token.'])
+        expect(json['errors']).to eq([ 'No active session or invalid token.' ])
       end
 
       it "returns unauthorized when Authorization header format is invalid" do
