@@ -20,6 +20,7 @@ Rails.application.routes.draw do
         resource :profile, only: [ :update, :show ]
         resource :stats, only: [ :show ]
         get ":username/achievements", to: "achievements#index", as: :achievements
+        get ":username/game-history", to: "game_histories#index", as: :game_history
       end
 
       # Game endpoints

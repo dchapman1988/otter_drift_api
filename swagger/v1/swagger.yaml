@@ -156,6 +156,176 @@ paths:
                       type: string
                 required:
                 - errors
+  "/api/v1/players/{username}/game-history":
+    parameters:
+    - name: username
+      in: path
+      description: Player username
+      required: true
+      schema:
+        type: string
+    - name: limit
+      in: query
+      required: false
+      description: 'Number of games to return (default: 20, max: 100)'
+      schema:
+        type: integer
+    - name: offset
+      in: query
+      required: false
+      description: 'Offset for pagination (default: 0)'
+      schema:
+        type: integer
+    get:
+      summary: List Player Game History
+      tags:
+      - Player Game History
+      description: Retrieves game history for a player, including all completed game
+        sessions with stats, high scores, and achievements earned
+      responses:
+        '200':
+          description: successful - no games
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  player:
+                    type: object
+                    properties:
+                      username:
+                        type: string
+                        description: Player username
+                      total_games:
+                        type: integer
+                        description: Total number of completed games
+                    required:
+                    - username
+                    - total_games
+                  game_history:
+                    type: array
+                    description: List of game sessions ordered by end date (most recent
+                      first)
+                    items:
+                      type: object
+                      properties:
+                        session_id:
+                          type: string
+                          description: Unique session identifier
+                        final_score:
+                          type: integer
+                          description: Final score achieved
+                        seed:
+                          type: integer
+                          description: Random seed used for game generation
+                        started_at:
+                          type: string
+                          format: date-time
+                          description: Game start timestamp
+                        ended_at:
+                          type: string
+                          format: date-time
+                          description: Game end timestamp
+                        game_duration:
+                          type: number
+                          format: float
+                          description: Game duration in seconds
+                          nullable: true
+                        stats:
+                          type: object
+                          properties:
+                            lilies_collected:
+                              type: integer
+                              description: Number of lilies collected
+                            obstacles_avoided:
+                              type: integer
+                              description: Number of obstacles avoided
+                            hearts_collected:
+                              type: integer
+                              description: Number of hearts collected
+                            max_speed_reached:
+                              type: number
+                              format: float
+                              description: Maximum speed reached
+                          required:
+                          - lilies_collected
+                          - obstacles_avoided
+                          - hearts_collected
+                          - max_speed_reached
+                        high_scores:
+                          type: array
+                          description: High scores associated with this game session
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                                description: High score record ID
+                              score:
+                                type: integer
+                                description: Score value
+                              player_name:
+                                type: string
+                                description: Player name at time of score
+                              created_at:
+                                type: string
+                                format: date-time
+                                description: When the score was recorded
+                            required:
+                            - id
+                            - score
+                            - player_name
+                            - created_at
+                        achievements_earned:
+                          type: integer
+                          description: Number of achievements earned during this game
+                      required:
+                      - session_id
+                      - final_score
+                      - seed
+                      - started_at
+                      - ended_at
+                      - game_duration
+                      - stats
+                      - high_scores
+                      - achievements_earned
+                  pagination:
+                    type: object
+                    properties:
+                      limit:
+                        type: integer
+                        description: Number of results per page
+                      offset:
+                        type: integer
+                        description: Current offset
+                      total:
+                        type: integer
+                        description: Total number of completed games
+                      returned:
+                        type: integer
+                        description: Number of games returned in this response
+                    required:
+                    - limit
+                    - offset
+                    - total
+                    - returned
+                required:
+                - player
+                - game_history
+                - pagination
+        '404':
+          description: player not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                required:
+                - errors
   "/api/v1/players/profile":
     get:
       summary: Get Player Profile

@@ -176,6 +176,28 @@ GET    /api/v1/achievements
 GET    /api/v1/players/:username/achievements
 ```
 
+### Game History
+
+```
+GET    /api/v1/players/:username/game-history
+```
+
+Retrieves complete game history for a player, including:
+- All completed game sessions ordered by most recent
+- Game statistics (lilies collected, obstacles avoided, hearts collected, max speed)
+- High scores for each game
+- Achievements earned during each game
+- Pagination support with `limit` and `offset` query parameters
+
+**Query Parameters:**
+- `limit`: Number of games to return (default: 20, max: 100)
+- `offset`: Offset for pagination (default: 0)
+
+**Example:**
+```bash
+curl http://localhost:3000/api/v1/players/testplayer/game-history?limit=10&offset=0
+```
+
 ### Leaderboards
 
 ```
@@ -219,6 +241,25 @@ bundle exec rubocop -a
 # Run Brakeman security scanner
 bundle exec brakeman
 ```
+
+### N+1 Query Detection
+
+This project uses Bullet to detect N+1 queries and other performance issues.
+
+**In Development:**
+- Bullet is enabled and will log warnings to the console and Rails logger
+- Check `log/bullet.log` for detailed reports
+- Warnings appear in the terminal when N+1 queries are detected
+
+**In Tests:**
+- Bullet is configured to raise errors if N+1 queries are detected
+- Tests will fail if performance issues are introduced
+- This ensures optimal database queries are maintained
+
+**Common Bullet Notifications:**
+- **N+1 Query**: Use eager loading (`.includes()`)
+- **Unused Eager Loading**: Remove unnecessary `.includes()`
+- **Counter Cache**: Consider adding counter cache columns for frequently counted associations
 
 ### Console
 

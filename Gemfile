@@ -57,6 +57,7 @@ group :development, :test do
   gem "simplecov"
   gem "simplecov-lcov"
   gem "database_cleaner-active_record"
+  gem "bullet"
 end
 
 
