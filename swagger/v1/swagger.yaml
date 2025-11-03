@@ -5,6 +5,85 @@ info:
   version: v1
   description: API documentation for Otter Drift game backend
 paths:
+  "/api/v1/players/{username}/achievements":
+    parameters:
+    - name: username
+      in: path
+      description: Player username
+      required: true
+      schema:
+        type: string
+    get:
+      summary: List Player Achievements
+      tags:
+      - Player Achievements
+      description: Retrieves all achievements earned by a player, ordered by most
+        recently collected
+      responses:
+        '200':
+          description: successful - no achievements
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  username:
+                    type: string
+                    description: Player username
+                  total_achievements:
+                    type: integer
+                    description: Total number of achievements earned
+                  achievements:
+                    type: array
+                    description: List of achievements ordered by collection date (most
+                      recent first)
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                          description: Achievement name
+                        description:
+                          type: string
+                          description: Achievement description
+                        achievement_type:
+                          type: string
+                          description: Unique achievement type identifier
+                        points:
+                          type: integer
+                          description: Points awarded for this achievement
+                        badge_url:
+                          type: string
+                          description: Badge URL if available, otherwise an emoji
+                            fallback
+                        collected_at:
+                          type: string
+                          format: date-time
+                          description: When the achievement was earned
+                      required:
+                      - name
+                      - description
+                      - achievement_type
+                      - points
+                      - badge_url
+                      - collected_at
+                required:
+                - username
+                - total_achievements
+                - achievements
+        '404':
+          description: player not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: array
+                    items:
+                      type: string
+                required:
+                - errors
   "/api/v1/players/profile":
     get:
       summary: Get Player Profile

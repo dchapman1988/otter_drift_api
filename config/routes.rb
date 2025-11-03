@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       namespace :players do
         resource :profile, only: [ :update, :show ]
         resource :stats, only: [ :show ]
+        get ':username/achievements', to: 'achievements#index', as: :achievements
       end
 
       # Game endpoints
