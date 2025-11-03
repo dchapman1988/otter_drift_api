@@ -25,6 +25,9 @@ Rails.application.routes.draw do
       # Game endpoints
       resources :game_sessions, only: [ :create, :index ]
       resources :achievements, only: [ :index ]
+
+      # Leaderboards
+      get "leaderboard", to: "leaderboards#index"
     end
   end
 end

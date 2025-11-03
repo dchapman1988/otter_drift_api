@@ -5,6 +5,78 @@ info:
   version: v1
   description: API documentation for Otter Drift game backend
 paths:
+  "/api/v1/leaderboard":
+    get:
+      summary: Get Leaderboard
+      tags:
+      - Leaderboards
+      description: Retrieves the global leaderboard with top scores, ranked by score
+        (highest first)
+      parameters:
+      - name: limit
+        in: query
+        required: false
+        description: 'Number of entries to return (default: 100, max: 500)'
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: successful - empty leaderboard
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  leaderboard:
+                    type: array
+                    description: Ranked list of high scores
+                    items:
+                      type: object
+                      properties:
+                        rank:
+                          type: integer
+                          description: Position in leaderboard (1-based)
+                        score:
+                          type: integer
+                          description: Final score achieved
+                        player_name:
+                          type: string
+                          description: Display name of the player
+                        achieved_at:
+                          type: string
+                          format: date-time
+                          description: When the score was achieved
+                        is_guest:
+                          type: boolean
+                          description: Whether this was a guest session
+                        player:
+                          type: object
+                          description: Player details (only present for authenticated
+                            players)
+                          properties:
+                            username:
+                              type: string
+                              description: Player username
+                            avatar_url:
+                              type: string
+                              nullable: true
+                              description: Player avatar URL
+                      required:
+                      - rank
+                      - score
+                      - player_name
+                      - achieved_at
+                      - is_guest
+                  total_entries:
+                    type: integer
+                    description: Number of entries returned
+                  limit:
+                    type: integer
+                    description: Applied limit for this request
+                required:
+                - leaderboard
+                - total_entries
+                - limit
   "/api/v1/players/{username}/achievements":
     parameters:
     - name: username

@@ -173,6 +173,13 @@ GET    /api/v1/game_sessions
 
 ```
 GET    /api/v1/achievements
+GET    /api/v1/players/:username/achievements
+```
+
+### Leaderboards
+
+```
+GET    /api/v1/leaderboard
 ```
 
 ## Database Architecture
