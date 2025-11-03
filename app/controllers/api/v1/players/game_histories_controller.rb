@@ -6,7 +6,7 @@ module Api
           player = Player.find_by(username: params[:username])
 
           unless player
-            render json: { errors: ["Player not found"] }, status: :not_found
+            render json: { errors: [ "Player not found" ] }, status: :not_found
             return
           end
 
@@ -16,9 +16,9 @@ module Api
           game_sessions = player.game_sessions
                                .completed
                                .includes(:high_scores)
-                               .select('game_sessions.*, COUNT(earned_achievements.id)::integer as achievements_count')
+                               .select("game_sessions.*, COUNT(earned_achievements.id)::integer as achievements_count")
                                .left_joins(:earned_achievements)
-                               .group('game_sessions.id')
+                               .group("game_sessions.id")
                                .order(ended_at: :desc)
                                .limit(limit)
                                .offset(offset)
@@ -46,7 +46,7 @@ module Api
         def parse_limit(limit_param)
           limit = limit_param.to_i
           return 20 if limit <= 0
-          [limit, 100].min # Max 100 games per request
+          [ limit, 100 ].min # Max 100 games per request
         end
 
         def format_game_session(session)

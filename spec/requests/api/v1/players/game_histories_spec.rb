@@ -317,7 +317,7 @@ RSpec.describe 'api/v1/players/:username/game-history', type: :request do
 
         expect(response).to have_http_status(:ok)
         data = JSON.parse(response.body)
-        expect(data['game_history'].map { |g| g['session_id'] }).to eq(['newest', 'middle', 'oldest'])
+        expect(data['game_history'].map { |g| g['session_id'] }).to eq([ 'newest', 'middle', 'oldest' ])
       end
     end
 
