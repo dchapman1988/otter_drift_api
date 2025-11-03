@@ -1,5 +1,19 @@
 # SimpleCov must be loaded BEFORE any application code
 require 'simplecov'
+require 'simplecov-lcov'
+
+# Configure LCOV formatter for CI
+SimpleCov::Formatter::LcovFormatter.config do |c|
+  c.report_with_single_file = true
+  c.single_report_path = 'coverage/lcov.info'
+end
+
+# Use multiple formatters: HTML for local, LCOV for CI
+SimpleCov.formatters = SimpleCov::Formatter::MultiFormatter.new([
+  SimpleCov::Formatter::HTMLFormatter,
+  SimpleCov::Formatter::LcovFormatter
+])
+
 SimpleCov.start 'rails' do
   # Require 99% line coverage
   # With Rails eager loading enabled (CI=true), we achieve 99.73% coverage

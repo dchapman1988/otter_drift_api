@@ -1,0 +1,23 @@
+coverage:
+  status:
+    project:
+      default:
+        target: 99%
+        threshold: 0.5%
+        if_ci_failed: error
+    patch:
+      default:
+        target: 99%
+        threshold: 0.5%
+
+comment:
+  layout: "reach, diff, flags, files"
+  behavior: default
+  require_changes: false
+  require_base: false
+  require_head: true
+
+ignore:
+  - "spec/**/*"
+  - "config/**/*"
+  - "vendor/**/*"
