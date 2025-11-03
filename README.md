@@ -1,5 +1,7 @@
 # Otter Drift API
 
+[![codecov](https://codecov.io/github/dchapman1988/otter_drift_api/graph/badge.svg?token=FDSYVQQYMR)](https://codecov.io/github/dchapman1988/otter_drift_api)
+
 Backend API server for **[Otter Drift](https://github.com/dchapman1988/otter_drift)**, a Flutter/Flame mobile game where players navigate as an otter to avoid logs, collect lilies and hearts, and compete for high scores.
 
 ## About
