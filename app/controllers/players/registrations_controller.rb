@@ -11,6 +11,9 @@ module Players
 
       resource.save
       if resource.persisted?
+        # Send welcome email asynchronously
+        WelcomeMailer.welcome_email(resource).deliver_later
+
         render json: {
           player: {
             id: resource.id,

@@ -25,6 +25,9 @@ module Api
         # Link to player if authenticated
         @game_session.player = Current.player if Current.player
 
+        # Log client ID for analytics (when using client authentication)
+        Rails.logger.info "Game session created by client: #{current_client_id}" if current_client_id
+
         @game_session.assign_attributes(game_session_params)
 
         if @game_session.save

@@ -151,6 +151,41 @@ RSpec.describe "Api::V1::GameSessions", type: :request do
         expect(json_response).not_to have_key('player_stats')
       end
     end
+
+    context 'when using client authentication' do
+      let(:valid_client_id) { 'test_client' }
+      let(:valid_api_key) { 'test_api_key_12345' }
+      let(:client_token) do
+        allow(Rails.application.credentials).to receive(:dig).with(:test_client).and_return(valid_api_key)
+        post '/api/v1/auth/login', params: {
+          client_id: valid_client_id,
+          api_key: valid_api_key
+        }
+        JSON.parse(response.body)['token']
+      end
+
+      it 'creates a guest session with client authentication' do
+        expect {
+          post api_v1_game_sessions_path,
+               params: { game_session: valid_attributes },
+               headers: { 'Authorization' => "Bearer #{client_token}" }
+        }.to change(GameSession, :count).by(1)
+
+        expect(GameSession.last.player).to be_nil
+      end
+
+      it 'logs the client_id when creating session' do
+        token = client_token  # Generate token first
+
+        # Allow other log messages but expect our specific one
+        allow(Rails.logger).to receive(:info).and_call_original
+        expect(Rails.logger).to receive(:info).with(/Game session created by client: test_client/).and_call_original
+
+        post api_v1_game_sessions_path,
+             params: { game_session: valid_attributes },
+             headers: { 'Authorization' => "Bearer #{token}" }
+      end
+    end
   end
 
   describe 'GET /api/v1/game_sessions' do
