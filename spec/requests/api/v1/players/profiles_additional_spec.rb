@@ -40,7 +40,7 @@ RSpec.describe "Api::V1::Players::Profiles Additional Coverage", type: :request 
               },
               headers: { 'Authorization' => auth_token }
 
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
         json = JSON.parse(response.body)
         expect(json['errors']).to include("Bio is too long (maximum is 500 characters)")
         expect(json['details']).to be_present
@@ -57,7 +57,7 @@ RSpec.describe "Api::V1::Players::Profiles Additional Coverage", type: :request 
               },
               headers: { 'Authorization' => auth_token }
 
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
         json = JSON.parse(response.body)
         expect(json['errors']).to be_present
       end
@@ -76,7 +76,7 @@ RSpec.describe "Api::V1::Players::Profiles Additional Coverage", type: :request 
               },
               headers: { 'Authorization' => auth_token }
 
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
         json = JSON.parse(response.body)
 
         # Should have errors and details from validation failures
@@ -157,7 +157,7 @@ RSpec.describe "Api::V1::Players::Profiles Additional Coverage", type: :request 
               },
               headers: { 'Authorization' => auth_token }
 
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
         json = JSON.parse(response.body)
 
         # The magic number validation kicks in before content type validation
@@ -181,7 +181,7 @@ RSpec.describe "Api::V1::Players::Profiles Additional Coverage", type: :request 
               },
               headers: { 'Authorization' => auth_token }
 
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
         json = JSON.parse(response.body)
 
         expect(json['errors']).to include("Avatar file content does not match the declared image type")
@@ -207,7 +207,7 @@ RSpec.describe "Api::V1::Players::Profiles Additional Coverage", type: :request 
               },
               headers: { 'Authorization' => auth_token }
 
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
         json = JSON.parse(response.body)
 
         expect(json['errors']).to include("Avatar file content does not match the declared image type")
@@ -234,7 +234,7 @@ RSpec.describe "Api::V1::Players::Profiles Additional Coverage", type: :request 
               },
               headers: { 'Authorization' => auth_token }
 
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
         json = JSON.parse(response.body)
 
         expect(json['errors']).to include("Avatar file content does not match the declared image type")
@@ -307,7 +307,7 @@ RSpec.describe "Api::V1::Players::Profiles Additional Coverage", type: :request 
                 },
                 headers: { 'Authorization' => auth_token }
 
-          expect(response).to have_http_status(:unprocessable_entity)
+          expect(response).to have_http_status(:unprocessable_content)
           json = JSON.parse(response.body)
 
           expect(json['errors']).to include("Avatar file content does not match the declared image type")
@@ -480,7 +480,7 @@ RSpec.describe "Api::V1::Players::Profiles Additional Coverage", type: :request 
                 },
                 headers: { 'Authorization' => auth_token }
 
-          expect(response).to have_http_status(:unprocessable_entity)
+          expect(response).to have_http_status(:unprocessable_content)
           json = JSON.parse(response.body)
           expect(json['errors']).to include("Avatar file content does not match the declared image type")
         end
@@ -521,7 +521,7 @@ RSpec.describe "Api::V1::Players::Profiles Additional Coverage", type: :request 
                 },
                 headers: { 'Authorization' => auth_token }
 
-          expect(response).to have_http_status(:unprocessable_entity)
+          expect(response).to have_http_status(:unprocessable_content)
           json = JSON.parse(response.body)
           expect(json['errors']).to include("Avatar file content does not match the declared image type")
         end

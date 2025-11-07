@@ -30,7 +30,7 @@ module Players
         render json: {
           errors: resource.errors.full_messages,
           details: resource.errors.details
-        }, status: :unprocessable_entity
+        }, status: :unprocessable_content
       end
     end
 

@@ -3,11 +3,11 @@ Rails.application.routes.draw do
   mount Rswag::Api::Engine => "/api-docs"
   # Player authentication - custom controllers
   devise_for :players,
-    path: "players",
-    controllers: {
-      sessions: "players/sessions",
-      registrations: "players/registrations"
-    }
+             path: "players",
+             controllers: {
+               sessions: "players/sessions",
+               registrations: "players/registrations"
+             }
 
 
   namespace :api do

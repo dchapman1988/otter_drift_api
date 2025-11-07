@@ -68,7 +68,7 @@ RSpec.describe "Players::Registrations", type: :request do
         invalid_attributes[:player][:email] = nil
 
         post '/players', params: invalid_attributes
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
       end
 
       it "returns error messages for missing email" do

@@ -84,7 +84,7 @@ module Api
           render json: {
             errors: errors[:messages],
             details: errors[:details]
-          }, status: :unprocessable_entity
+          }, status: :unprocessable_content
         end
 
         def collect_errors(player, profile)

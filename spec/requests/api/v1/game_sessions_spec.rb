@@ -83,7 +83,7 @@ RSpec.describe "Api::V1::GameSessions", type: :request do
 
         it 'returns unprocessable entity status' do
           post api_v1_game_sessions_path, params: { game_session: invalid_attributes }
-          expect(response).to have_http_status(:unprocessable_entity)
+          expect(response).to have_http_status(:unprocessable_content)
         end
 
         it 'returns error messages' do

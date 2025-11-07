@@ -35,7 +35,7 @@ module Api
           render json: response_data, status: :created
         else
           render json: { errors: @game_session.errors.full_messages },
-                 status: :unprocessable_entity
+                 status: :unprocessable_content
         end
       end
 
