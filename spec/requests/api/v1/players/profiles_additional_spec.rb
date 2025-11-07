@@ -389,7 +389,7 @@ RSpec.describe "Api::V1::Players::Profiles Additional Coverage", type: :request 
 
         it "validates JPEG files correctly" do
           # Create a minimal JPEG fixture
-          jpeg_data = [0xFF, 0xD8, 0xFF, 0xE0].pack('C*') + 'X' * 100
+          jpeg_data = [ 0xFF, 0xD8, 0xFF, 0xE0 ].pack('C*') + 'X' * 100
           File.binwrite(Rails.root.join('spec/fixtures/files/test.jpg'), jpeg_data)
 
           jpeg_file = Rack::Test::UploadedFile.new(
@@ -441,7 +441,7 @@ RSpec.describe "Api::V1::Players::Profiles Additional Coverage", type: :request 
 
         it "validates WebP files correctly" do
           # Create a minimal WebP fixture (RIFF + size + WEBP)
-          webp_data = "RIFF" + [16].pack('V') + "WEBP" + 'X' * 100
+          webp_data = "RIFF" + [ 16 ].pack('V') + "WEBP" + 'X' * 100
           File.write(Rails.root.join('spec/fixtures/files/test.webp'), webp_data)
 
           webp_file = Rack::Test::UploadedFile.new(

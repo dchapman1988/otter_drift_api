@@ -200,17 +200,17 @@ module Api
 
           # Remove any non-alphanumeric characters except dots, dashes, and underscores
           # This prevents script injection and special character exploits
-          sanitized = basename.gsub(/[^\w\.\-]/, '_')
+          sanitized = basename.gsub(/[^\w\.\-]/, "_")
 
           # Ensure filename has a reasonable length
           sanitized = sanitized[0..255]
 
           # Prevent double extensions that could be exploited (.jpg.php)
           # Keep only the last extension
-          name_parts = sanitized.split('.')
+          name_parts = sanitized.split(".")
           if name_parts.length > 2
             extension = name_parts.last
-            name = name_parts[0..-2].join('_')
+            name = name_parts[0..-2].join("_")
             sanitized = "#{name}.#{extension}"
           end
 

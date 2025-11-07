@@ -40,7 +40,7 @@ class Player < ApplicationRecord
     # Check file size
     if avatar.byte_size > 5.megabytes
       errors.add(:avatar, "must be less than 5MB")
-      return
+      nil
     end
   end
 
