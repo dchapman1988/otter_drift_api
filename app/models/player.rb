@@ -8,6 +8,7 @@ class Player < ApplicationRecord
   has_many :earned_achievements, dependent: :destroy
   has_many :achievements, through: :earned_achievements
   has_one  :player_profile, dependent: :destroy
+  has_one_attached :avatar
 
   validates :username, presence: true, uniqueness: { case_sensitive: false },
             length: { minimum: 3, maximum: 20 }
@@ -23,6 +24,25 @@ class Player < ApplicationRecord
   # Email uniqueness is already handled by Devise's :validatable module
   # But we can add case-insensitive uniqueness explicitly
   validates :email, uniqueness: { case_sensitive: false }
+
+  # Avatar validations
+  validate :avatar_validation
+
+  def avatar_validation
+    return unless avatar.attached?
+
+    # Check content type (basic check, can be spoofed)
+    unless avatar.content_type.in?(%w[image/png image/jpg image/jpeg image/gif image/webp])
+      errors.add(:avatar, "must be a PNG, JPG, JPEG, GIF, or WebP image")
+      return
+    end
+
+    # Check file size
+    if avatar.byte_size > 5.megabytes
+      errors.add(:avatar, "must be less than 5MB")
+      return
+    end
+  end
 
   def display_name_or_username
     display_name.presence || username

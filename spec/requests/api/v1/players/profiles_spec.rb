@@ -26,6 +26,16 @@ RSpec.describe 'api/v1/players/profiles', type: :request do
                 username: { type: :string },
                 display_name: { type: :string, nullable: true },
                 avatar_url: { type: :string, nullable: true },
+                avatar: {
+                  type: :object,
+                  nullable: true,
+                  properties: {
+                    url: { type: :string },
+                    filename: { type: :string },
+                    content_type: { type: :string },
+                    byte_size: { type: :integer }
+                  }
+                },
                 profile: {
                   type: :object,
                   properties: {
@@ -63,9 +73,19 @@ RSpec.describe 'api/v1/players/profiles', type: :request do
 
     patch('Update Player Profile') do
       tags 'Player Profile'
-      description 'Updates the authenticated player\'s profile and player information'
+      description <<~DESC
+        Updates the authenticated player's profile and player information.
+
+        **Supports two content types:**
+        - `application/json` - For updating profile fields without file uploads
+        - `multipart/form-data` - Required when uploading avatar images
+
+        **Avatar Upload:**
+        To upload an avatar, send a `multipart/form-data` request with the avatar file.
+        Supported formats: PNG, JPG, JPEG, GIF, WebP (max 5MB)
+      DESC
       security [ bearer_auth: [] ]
-      consumes 'application/json'
+      consumes 'application/json', 'multipart/form-data'
       produces 'application/json'
 
       parameter name: :player_data, in: :body, schema: {
@@ -78,6 +98,7 @@ RSpec.describe 'api/v1/players/profiles', type: :request do
               username: { type: :string, description: 'Player username (3-50 characters)' },
               email: { type: :string, description: 'Player email address' },
               avatar_url: { type: :string, description: 'URL to player avatar image' },
+              avatar: { type: :string, format: :binary, description: 'Avatar image file (PNG, JPG, JPEG, GIF, or WebP, max 5MB). Use multipart/form-data when uploading.' },
               profile: {
                 type: :object,
                 properties: {
@@ -115,6 +136,16 @@ RSpec.describe 'api/v1/players/profiles', type: :request do
                 username: { type: :string },
                 display_name: { type: :string },
                 avatar_url: { type: :string, nullable: true },
+                avatar: {
+                  type: :object,
+                  nullable: true,
+                  properties: {
+                    url: { type: :string },
+                    filename: { type: :string },
+                    content_type: { type: :string },
+                    byte_size: { type: :integer }
+                  }
+                },
                 profile: {
                   type: :object,
                   properties: {
