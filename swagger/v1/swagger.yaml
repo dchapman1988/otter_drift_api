@@ -417,7 +417,7 @@ paths:
       parameters: []
       responses:
         '200':
-          description: successful - with avatar upload
+          description: successful
           content:
             application/json:
               schema:
@@ -443,16 +443,12 @@ paths:
                         properties:
                           url:
                             type: string
-                            description: Full URL to access the uploaded avatar
                           filename:
                             type: string
-                            description: Original filename of the uploaded avatar
                           content_type:
                             type: string
-                            description: MIME type of the avatar image
                           byte_size:
                             type: integer
-                            description: File size in bytes
                       profile:
                         type: object
                         properties:
@@ -623,6 +619,94 @@ paths:
                     type: array
                     items:
                       type: string
+  "/api/v1/suggestions":
+    post:
+      summary: Create Suggestion
+      tags:
+      - Suggestions
+      description: Creates a new suggestion from a player or guest. Suggestions can
+        be associated with a player by providing either player_name (username) or
+        player_id.
+      parameters: []
+      responses:
+        '201':
+          description: successful - guest suggestion without player
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: Suggestion ID
+                  note:
+                    type: string
+                    description: Suggestion text
+                  player_id:
+                    type: integer
+                    nullable: true
+                    description: Associated player ID (null for guests)
+                  created_at:
+                    type: string
+                    format: date-time
+                    description: Creation timestamp
+                  updated_at:
+                    type: string
+                    format: date-time
+                    description: Last update timestamp
+                required:
+                - id
+                - note
+                - created_at
+                - updated_at
+        '422':
+          description: unprocessable entity - note too long
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    description: Validation errors
+                    properties:
+                      player_name:
+                        type: array
+                        items:
+                          type: string
+                    additionalProperties:
+                      type: array
+                      items:
+                        type: string
+                required:
+                - errors
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                suggestion:
+                  type: object
+                  properties:
+                    note:
+                      type: string
+                      description: The suggestion text (3-1000 characters)
+                      minLength: 3
+                      maxLength: 1000
+                    player_name:
+                      type: string
+                      description: Username of the player making the suggestion (optional)
+                      nullable: true
+                    player_id:
+                      type: integer
+                      description: ID of the player making the suggestion (optional,
+                        player_name takes precedence)
+                      nullable: true
+                  required:
+                  - note
+              required:
+              - suggestion
 servers:
 - url: http://localhost:3000
   description: Development server

@@ -29,6 +29,9 @@ Rails.application.routes.draw do
 
       # Leaderboards
       get "leaderboard", to: "leaderboards#index"
+
+      # Misc endpoints
+      resources :suggestions
     end
   end
 end

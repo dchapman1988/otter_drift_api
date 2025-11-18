@@ -7,6 +7,7 @@ class Player < ApplicationRecord
   has_many :game_sessions, dependent: :destroy
   has_many :earned_achievements, dependent: :destroy
   has_many :achievements, through: :earned_achievements
+  has_many :suggestions, dependent: :destroy
   has_one  :player_profile, dependent: :destroy
   has_one_attached :avatar
 

@@ -10,8 +10,8 @@ Otter Drift API is a Rails 8 JSON API that handles player authentication, game s
 
 ## Tech Stack
 
-- **Ruby**: 3.4.6
-- **Rails**: 8.0.4 (API mode)
+- **Ruby**: 3.4.7
+- **Rails**: 8.1.1 (API mode)
 - **Database**: PostgreSQL
 - **Authentication**: Devise + JWT (devise-jwt)
 - **Testing**: RSpec + FactoryBot + Faker + Shoulda Matchers
@@ -20,7 +20,7 @@ Otter Drift API is a Rails 8 JSON API that handles player authentication, game s
 
 ## Prerequisites
 
-- Ruby 3.4.6
+- Ruby 3.4.7
 - PostgreSQL
 - Bundler
 
