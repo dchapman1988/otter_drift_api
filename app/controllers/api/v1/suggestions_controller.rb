@@ -31,7 +31,7 @@ module Api
       private
 
       def player_not_found(exception)
-        render json: { errors: { player_name: [exception.message] } }, status: :unprocessable_content
+        render json: { errors: { player_name: [ exception.message ] } }, status: :unprocessable_content
       end
     end
   end
