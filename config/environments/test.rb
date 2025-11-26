@@ -42,6 +42,11 @@ Rails.application.configure do
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
+  # Temporarily disable deprecation warnings in tests to suppress Devise-related
+  # warnings until Devise 5.0 is released
+  # See: https://github.com/heartcombo/devise/issues/5735
+  config.active_support.report_deprecations = false
+
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
 
